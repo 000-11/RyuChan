@@ -4,6 +4,7 @@ import {
   BANNER_HEIGHT,
   SITE_PAGES,
   TYPEWRITER_TEXTS,
+  BANNER_CONFIG,
 } from "@config";
 
 export interface Props {
@@ -57,6 +58,16 @@ const hasSubtitle = displaySubtitle !== undefined && displaySubtitle !== "";
 
 // 只使用配置中的图片列表
 let carouselImgsList = BANNER_IMAGES;
+
+// 如果启用了随机图配置，则生成随机图列表
+if (BANNER_CONFIG?.enableRandom && BANNER_CONFIG?.randomUrl) {
+  const count = BANNER_CONFIG.randomCount || 5;
+  carouselImgsList = Array.from({ length: count }).map((_, i) => {
+    const separator = BANNER_CONFIG.randomUrl?.includes('?') ? '&' : '?';
+    return `${BANNER_CONFIG.randomUrl}${separator}random=${i + 1}`;
+  });
+}
+
 const carouselAnimationTime = `${carouselImgsList.length * 6}s`;
 const bannerHeight = BANNER_HEIGHT;
 

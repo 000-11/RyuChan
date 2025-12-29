@@ -79,6 +79,9 @@ export interface SiteConfig {
   banner?: {
     images: string[];
     height: string;
+    enableRandom?: boolean;
+    randomUrl?: string;
+    randomCount?: number;
   };
   pages?: {
     [key: string]: PageConfig;
