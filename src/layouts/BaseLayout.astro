@@ -95,7 +95,8 @@ const bannerSubtitle = pageConfig?.subtitle || "";
           localStorage.setItem("theme", theme);
         }
         document.documentElement.setAttribute("data-theme", theme);
-        const themeType = theme === SITE_THEME.dark ? "dark" : "light";
+        const isDark = theme === SITE_THEME.dark || ['dark', 'synthwave', 'halloween', 'forest', 'black', 'luxury', 'dracula', 'business', 'night', 'coffee'].includes(theme);
+        const themeType = isDark ? "dark" : "light";
         document.documentElement.setAttribute("data-theme-type", themeType);
         window
           .matchMedia("(prefers-color-scheme: dark)")

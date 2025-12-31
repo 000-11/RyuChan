@@ -28,25 +28,23 @@
 
 /* Color scheme configuration to prevent Chrome's auto dark theme */
 /* Color scheme configuration to prevent Chrome's auto dark theme */
-:root,
+:root {
+  --custom-page-bg: oklch(var(--b2));
+  --banner-wave-bg: oklch(var(--b2));
+}
+
 [data-theme-type="light"] {
-  color-scheme: light dark;
-  /* This prevents Chrome's auto dark theme from taking effect */
-  --custom-page-bg: #f6f4fb;
-  --banner-wave-bg: #f6f4fb;
-  /* 添加自定义背景色变量 */
+  color-scheme: light;
 }
 
 [data-theme-type="dark"] {
   color-scheme: dark;
-  --custom-page-bg: #110f16;
-  --banner-wave-bg: #110f16;
-  /* 添加暗色主题背景色变量 */
 }
 
 /* Global styles with nesting support */
 html {
   @apply scroll-smooth font-sans;
+  font-family: theme('fontFamily.sans') !important; /* 强制使用自定义字体，防止主题覆盖 */
   font-size: 16px;
   /* 桌面端默认字号 */
   line-height: 1.75;
