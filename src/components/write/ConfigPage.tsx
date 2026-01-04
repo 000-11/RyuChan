@@ -15,6 +15,9 @@ const SOCIAL_PRESETS = [
     { label: 'Bilibili', value: 'ri:bilibili-line' },
     { label: 'Email', value: 'ri:mail-line' },
     { label: 'Telegram', value: 'ri:telegram-line' },
+    { label: 'QQ', value: 'ri:qq-line' },
+    { label: 'WeChat', value: 'ri:wechat-line' },
+    { label: 'Douyin', value: 'ri:douyin-line' },
     { label: 'RSS', value: 'ri:rss-fill' },
     { label: 'Weibo', value: 'ri:weibo-line' },
     { label: 'Zhihu', value: 'ri:zhihu-line' },
@@ -356,6 +359,156 @@ export function ConfigPage() {
                                     <button onClick={addSocial} className="btn btn-ghost btn-sm w-full text-zinc-400 hover:text-zinc-600 hover:bg-zinc-100">
                                         + 添加按钮
                                     </button>
+                                </div>
+
+                                <div className="divider"></div>
+
+                                {/* Features: Bangumi & TMDB */}
+                                <div className="space-y-6">
+                                    <h3 className="font-bold text-zinc-900 dark:text-zinc-100">功能配置</h3>
+                                    
+                                    {/* Bilibili Bangumi */}
+                                    <div className="space-y-3">
+                                        <div className="text-sm text-zinc-500">追番 (Bilibili)</div>
+                                        <div className="grid grid-cols-1 gap-6">
+                                            <div className="form-control w-full">
+                                                <label className="label"><span className="label-text text-xs text-zinc-400">Bilibili UID</span></label>
+                                                <input type="text" className="input input-bordered w-full bg-zinc-100/50 border-transparent focus:bg-white focus:border-red-500 transition-all" 
+                                                    placeholder="例如：1536411565"
+                                                    value={parsedConfig?.site?.bilibili?.uid || ''} 
+                                                    onChange={e => updateConfigValue('site.bilibili.uid', e.target.value)} />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* TMDB */}
+                                    <div className="space-y-3">
+                                        <div className="text-sm text-zinc-500">片单 (TMDB)</div>
+                                        <div className="grid grid-cols-2 gap-6">
+                                            <div className="form-control w-full">
+                                                <label className="label"><span className="label-text text-xs text-zinc-400">API Key</span></label>
+                                                <input type="text" className="input input-bordered w-full bg-zinc-100/50 border-transparent focus:bg-white focus:border-red-500 transition-all" 
+                                                    value={parsedConfig?.site?.tmdb?.apiKey || ''} 
+                                                    onChange={e => updateConfigValue('site.tmdb.apiKey', e.target.value)} />
+                                            </div>
+                                            <div className="form-control w-full">
+                                                <label className="label"><span className="label-text text-xs text-zinc-400">List ID</span></label>
+                                                <input type="text" className="input input-bordered w-full bg-zinc-100/50 border-transparent focus:bg-white focus:border-red-500 transition-all" 
+                                                    value={parsedConfig?.site?.tmdb?.listId || ''} 
+                                                    onChange={e => updateConfigValue('site.tmdb.listId', e.target.value)} />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="divider"></div>
+
+                                {/* Comments */}
+                                <div className="space-y-6">
+                                    <div className="flex items-center justify-between">
+                                        <h3 className="font-bold text-zinc-900 dark:text-zinc-100">评论系统</h3>
+                                        <div className="flex items-center gap-2">
+                                            <span className="text-sm text-zinc-500">启用</span>
+                                            <input type="checkbox" className="toggle toggle-sm toggle-primary" 
+                                                checked={parsedConfig?.comments?.enable || false}
+                                                onChange={e => updateConfigValue('comments.enable', e.target.checked)} />
+                                        </div>
+                                    </div>
+
+                                    {parsedConfig?.comments?.enable && (
+                                        <div className="space-y-4 p-4 bg-zinc-50 dark:bg-zinc-900/50 rounded-xl border border-zinc-100 dark:border-zinc-800">
+                                            <div className="form-control w-full">
+                                                <label className="label"><span className="label-text text-zinc-500">评论插件</span></label>
+                                                <select className="select select-bordered w-full bg-white"
+                                                    value={parsedConfig?.comments?.type || 'giscus'}
+                                                    onChange={e => updateConfigValue('comments.type', e.target.value)}>
+                                                    <option value="giscus">Giscus</option>
+                                                    <option value="waline">Waline</option>
+                                                </select>
+                                            </div>
+
+                                            {parsedConfig?.comments?.type === 'giscus' && (
+                                                <div className="grid grid-cols-2 gap-4">
+                                                    <div className="form-control w-full">
+                                                        <label className="label"><span className="label-text text-xs text-zinc-400">Repo</span></label>
+                                                        <input type="text" className="input input-sm input-bordered w-full" 
+                                                            placeholder="owner/repo"
+                                                            value={parsedConfig?.comments?.giscus?.repo || ''} 
+                                                            onChange={e => updateConfigValue('comments.giscus.repo', e.target.value)} />
+                                                    </div>
+                                                    <div className="form-control w-full">
+                                                        <label className="label"><span className="label-text text-xs text-zinc-400">Repo ID</span></label>
+                                                        <input type="text" className="input input-sm input-bordered w-full" 
+                                                            value={parsedConfig?.comments?.giscus?.repoId || ''} 
+                                                            onChange={e => updateConfigValue('comments.giscus.repoId', e.target.value)} />
+                                                    </div>
+                                                    <div className="form-control w-full">
+                                                        <label className="label"><span className="label-text text-xs text-zinc-400">Category</span></label>
+                                                        <input type="text" className="input input-sm input-bordered w-full" 
+                                                            value={parsedConfig?.comments?.giscus?.category || ''} 
+                                                            onChange={e => updateConfigValue('comments.giscus.category', e.target.value)} />
+                                                    </div>
+                                                    <div className="form-control w-full">
+                                                        <label className="label"><span className="label-text text-xs text-zinc-400">Category ID</span></label>
+                                                        <input type="text" className="input input-sm input-bordered w-full" 
+                                                            value={parsedConfig?.comments?.giscus?.categoryId || ''} 
+                                                            onChange={e => updateConfigValue('comments.giscus.categoryId', e.target.value)} />
+                                                    </div>
+                                                </div>
+                                            )}
+
+                                            {parsedConfig?.comments?.type === 'waline' && (
+                                                <div className="form-control w-full">
+                                                    <label className="label"><span className="label-text text-xs text-zinc-400">Server URL</span></label>
+                                                    <input type="text" className="input input-bordered w-full" 
+                                                        placeholder="https://your-waline-server.vercel.app"
+                                                        value={parsedConfig?.comments?.waline?.serverURL || ''} 
+                                                        onChange={e => updateConfigValue('comments.waline.serverURL', e.target.value)} />
+                                                </div>
+                                            )}
+                                        </div>
+                                    )}
+                                </div>
+
+                                <div className="divider"></div>
+
+                                {/* Umami Analytics */}
+                                <div className="space-y-6">
+                                    <div className="flex items-center justify-between">
+                                        <h3 className="font-bold text-zinc-900 dark:text-zinc-100">Umami 统计</h3>
+                                        <div className="flex items-center gap-2">
+                                            <span className="text-sm text-zinc-500">启用</span>
+                                            <input type="checkbox" className="toggle toggle-sm toggle-primary" 
+                                                checked={parsedConfig?.umami?.enable || false}
+                                                onChange={e => updateConfigValue('umami.enable', e.target.checked)} />
+                                        </div>
+                                    </div>
+
+                                    {parsedConfig?.umami?.enable && (
+                                        <div className="space-y-4 p-4 bg-zinc-50 dark:bg-zinc-900/50 rounded-xl border border-zinc-100 dark:border-zinc-800">
+                                            <div className="form-control w-full">
+                                                <label className="label"><span className="label-text text-xs text-zinc-400">Base URL</span></label>
+                                                <input type="text" className="input input-bordered w-full bg-white" 
+                                                    placeholder="https://cloud.umami.is"
+                                                    value={parsedConfig?.umami?.baseUrl || ''} 
+                                                    onChange={e => updateConfigValue('umami.baseUrl', e.target.value)} />
+                                            </div>
+                                            <div className="grid grid-cols-2 gap-6">
+                                                <div className="form-control w-full">
+                                                    <label className="label"><span className="label-text text-xs text-zinc-400">Website ID</span></label>
+                                                    <input type="text" className="input input-bordered w-full bg-white" 
+                                                        value={parsedConfig?.umami?.websiteId || ''} 
+                                                        onChange={e => updateConfigValue('umami.websiteId', e.target.value)} />
+                                                </div>
+                                                <div className="form-control w-full">
+                                                    <label className="label"><span className="label-text text-xs text-zinc-400">Share ID</span></label>
+                                                    <input type="text" className="input input-bordered w-full bg-white" 
+                                                        value={parsedConfig?.umami?.shareId || ''} 
+                                                        onChange={e => updateConfigValue('umami.shareId', e.target.value)} />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                         )}
