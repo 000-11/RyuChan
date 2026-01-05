@@ -104,7 +104,7 @@ const getCategoryDisplayName = (category: string): string => {
       <div class="grid grid-cols-4 md:grid-cols-2 lg:grid-cols-4 gap-2 justify-items-center">  
         {USER_SIDEBAR_SOCIAL_ICONS.map((icon) => {
           let href = icon.href;
-          if ((icon.svg.includes('mail') || icon.svg.includes('at-line')) && !href.startsWith('mailto:')) {
+          if ((icon.svg.includes('mail') || (icon.svg.includes('at-line') && !icon.svg.includes('wechat'))) && !href.startsWith('mailto:')) {
             href = `mailto:${href}`;
           } else if (icon.svg.includes('qq') && /^\d+$/.test(href)) {
             href = `tencent://message/?uin=${href}&Site=&Menu=yes`;
