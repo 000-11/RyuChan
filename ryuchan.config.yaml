@@ -1,7 +1,9 @@
 site:
   tab: RyuChan
   title: RyuChan
-  description: 🌸 轻盈、优雅、纯净 —— 用文字与图片记录生活与创意
+  description: |-
+    ˏ.˖༝ᶦ ˡᵒᵛᵉ ʸᵒᵘ༝˖.ˎ
+     ˋ༝˖.ᵢ ₗₒᵥₑ ᵧₒᵤ.˖༝ˊ˙
   language: zh
   favicon: /favicon.ico
   theme:
@@ -96,7 +98,7 @@ site:
       target: _self
 anime:
   bilibili:
-    uid: '1536411565'
+    uid: '3493116849949045'
   tmdb:
     apiKey: 08a6bef260044f70c150251c79f2e476
     listId: '8556173'
@@ -104,19 +106,19 @@ github:
   owner: kobaridev
   repo: RyuChan
   branch: main
-  appId: '在部署端配置环境变量'
+  appId: 在部署端配置环境变量
   encryptKey: wudishiduomejimo
 umami:
-  enable: true
+  enable: false
   baseUrl: https://umami.131714.xyz
   shareId: jToXL5Z3hnA1gKUw
   websiteId: 3f9afc6c-f0bd-4734-be15-6d053960d34d
   timezone: Asia/Shanghai
 user:
-  name: KoBariDev
-  description: Ciallo～(∠・ω<)⌒★
+  name: しゃ ふう
+  description: 🚂🚋🚋🚋🚋🚋🚋🚋🚋🚋💨～
   site: https://hub.xiaozhangya.xin
-  avatar: /images/uploads/1767534109675-0p1nho.jpg
+  avatar: /images/uploads/1768791039741-wjrlvy.jpg
   sidebar:
     social:
       - href: https://github.com/kobaridev
